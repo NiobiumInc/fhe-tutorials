@@ -7,7 +7,7 @@ LLVM_INCLUDE_DIR ?= $(shell llvm-config --includedir)
 LLVM_LIB_DIR ?= $(shell llvm-config --libdir)
 LLVM_LIBS ?= $(shell llvm-config --libs passes)
 
-.PHONY: config build execute
+.PHONY: all clean test config build execute
 
 config:
 	@echo "No configure step needed."
@@ -29,8 +29,8 @@ build:
 		-lOPENFHEpke \
 		-lnbcc \
 		"${LLVM_LIBS}" \
-		cipher_squared.cpp -o cipher_squared
+		program.cpp -o program
 
 execute:
 	@echo "Running example target"
-	./cipher_squared n n 6.48074069840786
+	./program 5.981 -7.033997655

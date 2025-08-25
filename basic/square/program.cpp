@@ -14,20 +14,20 @@ using namespace lbcrypto;
  *
  * Run the example with the niobium client CLI as follows:
  *
- *   $ niobium run examples/cipher_squared.cpp 6.48074069840786
+ *   $ niobium run basic/square 6.48074069840786
  *   <snip>
  *   The input is 6.48074069840786
  *   The answer is 42.
  *   <snip>
  */
 
-void multiply(CryptoContext<DCRTPoly> cc, Ciphertext<DCRTPoly> ct, Ciphertext<DCRTPoly>& sq) {
+void square(CryptoContext<DCRTPoly> cc, Ciphertext<DCRTPoly> ct, Ciphertext<DCRTPoly>& sq) {
   sq = cc->EvalSquare(ct);
 }
 
 int main(int argc, char** argv) {
-  if (argc < 4) {
-    std::cerr << "Usage: " << argv[0] << " <unused> <unused> [a number]" << std::endl;
+  if (argc < 2) {
+    std::cerr << "Usage: " << argv[0] << " [a number]" << std::endl;
     return 1;
   }
 
@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
   auto keys = cc->KeyGen();
   cc->EvalMultKeyGen(keys.secretKey);
 
-  double n = std::stod(argv[3]);
+  double n = std::stod(argv[1]);
   std::cout << "The input is " << std::fixed << std::setprecision(14) << n << std::endl;
 
   std::vector<double> x{n};
@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
   Ciphertext<DCRTPoly> sq;
 
 #ifdef NIOBIUM_COMPILER
-  niobium::compiler().run(multiply, cc, ct, sq);
+  niobium::compiler().run(square, cc, ct, sq);
 #endif
 
   Plaintext sqPt;

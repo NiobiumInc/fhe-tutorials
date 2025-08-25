@@ -15,7 +15,7 @@ using namespace lbcrypto;
  *
  * Run the example with the niobium client CLI as follows:
  *
- *   $ niobium run examples/ciphers_added.cpp 6.48074069840786 7.22
+ *   $ niobium run basic/addition 6.48074069840786 7.22
  *   <snip>
  *   The input is 6.48074069840786 and 7.22
  *   The answer is 13.70074069840786
@@ -27,8 +27,8 @@ void add(CryptoContext<DCRTPoly> cc, Ciphertext<DCRTPoly> ct1, Ciphertext<DCRTPo
 }
 
 int main(int argc, char** argv) {
-  if (argc < 5) {
-    std::cerr << "Usage: " << argv[0] << " <unused> <unused> [1st number] [2nd number]" << std::endl;
+  if (argc < 3) {
+    std::cerr << "Usage: " << argv[0] << " [1st number] [2nd number]" << std::endl;
     return 1;
   }
 
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
   auto keys = cc->KeyGen();
   cc->EvalMultKeyGen(keys.secretKey);
 
-  double num1 = std::stod(argv[3]);
+  double num1 = std::stod(argv[1]);
   std::cout << "The input for 1st number is " << std::fixed << std::setprecision(14) << num1 << std::endl;
 
   std::vector<double> x1{num1};
@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
 
   Ciphertext<DCRTPoly> ct1 = cc->Encrypt(keys.publicKey, pt1);
 
-  double num2 = std::stod(argv[4]);
+  double num2 = std::stod(argv[2]);
   std::cout << "The input for 2nd number is " << std::fixed << std::setprecision(14) << num2 << std::endl;
 
   std::vector<double> x2{num2};
