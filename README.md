@@ -13,11 +13,11 @@ You can run the examples here two ways:
 
 ### Running with Niobium Client
 
-<coming soon>
+Coming soon.
 
 ### Running with C++ Development Environment
 
-<coming soon>
+Coming soon.
 
 ## Getting Help
 
